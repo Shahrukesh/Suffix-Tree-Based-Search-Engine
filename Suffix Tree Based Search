@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_WORDS 150 
+#define MAX_WORD_LENGTH 50
+
+void findWordsWithSameEnding(char words[][MAX_WORD_LENGTH], int wordCount, char* ending) {
+    int found = 0;  // Flag to track if any words match the ending
+    printf("Words ending with '%s':\n", ending);
+    for (int i = 0; i < wordCount; i++) {
+        int len = strlen(words[i]);
+        if (len >= 2 && strcmp(&words[i][len - 2], ending) == 0) {
+            printf("%s\n", words[i]);
+            found = 1;  // Set flag if a match is found
+        }
+    }
+    if (!found) {
+        printf("No words end with the given suffix '%s'.\n", ending);
+    }
+}
+
+int main() {
+    char words[MAX_WORDS][MAX_WORD_LENGTH] = {
+        "mother", "brother", "tender", "computer", "defender", "printer", "order", "ladder",
+        "apple", "table", "mother", "tender", "computer", "dancing", "singing", "running",
+        "reading", "backup", "arrow", "window", "shadow", "meadow", "pillow", "walked",
+        "jumped", "quickly", "happily", "sadly", 
+        "cloth", "cagey", "energetic", "mark", "cure", "metal", "busy", "bright",
+        "workable", "low", "sofa", "chin", "cultured", "report", "support", "mind",
+        "ordinary", "continue", "dear", "search", "worry", "guttural", "reading",
+        "insect", "amuse", "historical", "silver", "tranquil", "alleged", "sedate",
+        "mysterious", "tender", "innocent", "vague", "current", "trouble", "truthful",
+        "damp", "language", "wise", "paint", "necessary", "foamy", "drab", "throat",
+        "acoustic", "penitent", "receive", "high-pitched", "brainy"
+    };
+    int wordCount = 80; 
+    char input[MAX_WORD_LENGTH];
+    char ending[3];
+
+    while (1) {
+        printf("Enter a word (enter 'exit' to quit): ");
+        scanf("%s", input);
+
+        if (strcmp(input, "exit") == 0) {
+            break;
+        }
+
+        int inputLen = strlen(input);
+        if (inputLen < 2) {
+            printf("The input word is too short to compare ending characters.\n");
+            continue;
+        }
+
+        ending[0] = input[inputLen - 2];
+        ending[1] = input[inputLen - 1];
+        ending[2] = '\0';
+
+        findWordsWithSameEnding(words, wordCount, ending);
+    }
+
+    return 0;
+}
